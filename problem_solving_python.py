@@ -334,20 +334,20 @@ if False:
     draw_kotch()
 
 # This is the most elegent solution using recurssion!!
-def moveTower(height,fromPole, toPole, withPole):
+
+def move_tower(height, from_pole, to_pole, with_pole):
     """
-    Solution to Hanoi
+    Recursive solution to Hanoi tower
     """
     if height >= 1:
-        moveTower(height-1,fromPole,withPole,toPole)
-        moveDisk(fromPole,toPole)
-        moveTower(height-1,withPole,toPole,fromPole)
+        move_tower(height-1, from_pole, with_pole, to_pole)
+        move_disk(from_pole, to_pole)
+        move_tower(height-1, with_pole, to_pole, from_pole)
 
-def moveDisk(fp,tp):
-    print("moving disk from",fp,"to",tp)
+def move_disk(from_pole, to_pole):
+    print("move from {} to {}".format(from_pole, to_pole))
 
-moveTower(4,"A","B","C")
-
+move_tower(4, "A", "C", "B")
 
 def optimal_change(change, coins={1, 5, 10, 25}):
     """
@@ -382,7 +382,8 @@ print(optimal_change(42, coins={1, 10, 20, 21}))
 
 def optimal_change2(change, known_ones, coins={1, 5, 10, 25}):
     """
-    Not efficient recursive call for optimal change problem
+    Not efficient recursive call for optimal change problem with
+    caching
     """
     if change in known_ones:
         return known_ones[change]
@@ -415,7 +416,7 @@ print(optimal_change2(63, known_ones=dict(), coins={1,2,5,10,20,21}))
 
 def optimal_change3(change, coins={1,2,5, 10, 25}):
     """
-    dynamic programming approach
+    dynamic programming approach to optimal change
     """
     optimals = dict()
     if change < min(coins):
